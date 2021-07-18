@@ -31,6 +31,9 @@ dependencies:
   http: ^0.13.3
   logger: ^1.0.0
   flutter_map: ^0.13.1
+  flutter_html: ^2.1.0
+  url_launcher: ^6.0.9
+  geolocator: ^7.3.0
 
 dev_dependencies:
   flutter_test:

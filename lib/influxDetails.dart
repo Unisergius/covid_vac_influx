@@ -93,8 +93,6 @@ class VacCenterListTile extends StatelessWidget {
   }
   @override
   Widget build(BuildContext context) {
-    var bgColor = Colors.grey;
-
     return ListTile(
       title: Text("${this.vacCenter.name}"),
       subtitle: Text(
@@ -105,7 +103,7 @@ class VacCenterListTile extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => CenterInfo(this.vacCenter)));
+                builder: (context) => CenterInfo(center: this.vacCenter)));
       },
     );
   }
