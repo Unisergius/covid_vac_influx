@@ -13,12 +13,12 @@ The list of Counties is fed by a local json asset called counties.json.
 A listView is then constructed with a ListTile for each county in the 
 json file. 
 
-![list of counties](https://imgur.com/xmvmTLf)
+![list of counties](https://imgur.com/xmvmTLf.png)
 
 Below is a TextField that upon being changed, it rebuilds the state,
 reconstructing the ListView with all the matching counties.
 
-![searchable counties](https://imgur.com/Ny2BFy5)
+![searchable counties](https://imgur.com/Ny2BFy5.png)
 
 Clicking a county will call the Navigator to display the next page - 
 the list of vaccination centers of that county.
@@ -33,7 +33,7 @@ The ListTile displays a trafficlight indicating the respective queue times.
 Upon clicking, navigator displays the center information page for the center 
 of the tile tapped.
 
-![list of vaccination centers](https://imgur.com/rjJExaG)
+![list of vaccination centers](https://imgur.com/rjJExaG.png)
 
 # Center information page
 
@@ -41,7 +41,7 @@ This page displays all the relevant information for the selected center.
 Name, map, respective address, GPS coordinates and a link to open on an 
 available browser for directions from your location to the center selected.
 
-![Vaccination Center information page](https://imgur.com/MhpiWnz)
+![Vaccination Center information page](https://imgur.com/MhpiWnz.png)
 
 # Packages Used 
   cupertino_icons: ^1.0.2
