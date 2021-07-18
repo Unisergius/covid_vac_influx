@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-Counties countiesFromJson(String str) => Counties.fromJson(json.decode(str));
+Counties countiesFromJson(String str, String? query) =>
+    Counties.fromJson(json.decode(str), query);
 
 String countiesToJson(Counties data) => json.encode(data.toJson());
 
@@ -9,8 +10,13 @@ class Counties {
 
   List<String> countyNames;
 
-  factory Counties.fromJson(Map<String, dynamic> json) => Counties(
-        countyNames: List<String>.from(json["county"].map((x) => x)),
+  factory Counties.fromJson(Map<String, dynamic> json, String? query) =>
+      Counties(
+        countyNames: List<String>.from(json["county"]
+            .where((x) => (query != null
+                ? x.toString().toLowerCase().contains(query.toLowerCase())
+                : true))
+            .toList()),
       );
 
   Map<String, dynamic> toJson() => {

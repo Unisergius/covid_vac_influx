@@ -43,9 +43,9 @@ Future<String> _loadLocalData(String jsonFile) async {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  Future<Counties> fetchQuests() async {
+  Future<Counties> fetchQuests({String? query}) async {
     String jsonString = await _loadLocalData("counties.json");
-    return countiesFromJson(jsonString);
+    return countiesFromJson(jsonString, query);
   }
 
   late Future<Counties> counties;
@@ -56,41 +56,52 @@ class _MyHomePageState extends State<MyHomePage> {
     counties = fetchQuests();
   }
 
+  void _repopulate(String? text) async {
+    if (text != null && text.length > 1) {
+      setState(() {
+        counties = fetchQuests(query: text);
+      });
+    } else {
+      setState(() {
+        counties = fetchQuests();
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: FutureBuilder<Counties>(
-          future: counties,
-          builder: (context, snapshot) {
-            if (snapshot.hasData) {
-              return ListView.builder(
-                  itemCount: snapshot.data!.countyNames.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return ListTile(
-                        title: Text(snapshot.data!.countyNames[index]),
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => InfluxPage(
-                                      title: "Centros",
-                                      countyName:
-                                          snapshot.data!.countyNames[index])));
-                        });
-                  });
-            } else if (snapshot.hasError) {
-              return Text("Error: $snapshot.error}");
-            }
-            return CircularProgressIndicator();
-          }),
-      /*floatingActionButton: FloatingActionButton(
-        onPressed: _refreshAPI,
-        tooltip: 'Refresh',
-        child: Icon(Icons.refresh),
-      ),*/
-    );
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
+        body: FutureBuilder<Counties>(
+            future: counties,
+            builder: (context, snapshot) {
+              if (snapshot.hasData) {
+                return ListView.builder(
+                    itemCount: snapshot.data!.countyNames.length,
+                    itemBuilder: (BuildContext context, int index) {
+                      return ListTile(
+                          title: Text(snapshot.data!.countyNames[index]),
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => InfluxPage(
+                                        title: "Centros",
+                                        countyName: snapshot
+                                            .data!.countyNames[index])));
+                          });
+                    });
+              } else if (snapshot.hasError) {
+                return Text("Error: $snapshot.error}");
+              }
+              return CircularProgressIndicator();
+            }),
+        bottomNavigationBar: ListTile(
+          tileColor: Colors.green[50],
+          title: TextField(onChanged: _repopulate),
+          trailing: Icon(Icons.search),
+        ));
   }
 }

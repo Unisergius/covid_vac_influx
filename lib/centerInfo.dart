@@ -55,7 +55,7 @@ class _CenterInfoState extends State<CenterInfo> {
 
   @override
   Widget build(BuildContext context) {
-    final title = 'Center Information';
+    final title = this.center.name;
 
     return Scaffold(
       appBar: AppBar(
